@@ -136,7 +136,14 @@ public class VersionController {
         }
     }
 
-
+    /**
+     * 测试用 删掉
+     * @param os_type
+     * @param edition_no
+     * @param version_no
+     * @param req
+     * @return
+     */
     @RequestMapping(value = "/get2")
     public String getVersionInfo2(@RequestParam("os_type") int os_type,@RequestParam("edition_no") int edition_no,@RequestParam("version_no") String version_no,HttpServletRequest req) {
         try {
