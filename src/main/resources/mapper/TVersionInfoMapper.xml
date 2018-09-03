@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yunzhiqu.api.dao.mapper.TVersionInfoMapper">
+  <resultMap id="BaseResultMap" type="com.yunzhiqu.api.modal.TVersionInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="os_type" jdbcType="INTEGER" property="osType" />
+    <result column="edition_no" jdbcType="INTEGER" property="editionNo" />
+    <result column="version_no" jdbcType="VARCHAR" property="versionNo" />
+    <result column="version_key" jdbcType="VARCHAR" property="versionKey" />
+    <result column="official_site" jdbcType="VARCHAR" property="officialSite" />
+    <result column="login_addr" jdbcType="VARCHAR" property="loginAddr" />
+    <result column="version_enable" jdbcType="INTEGER" property="versionEnable" />
+    <result column="need_update" jdbcType="INTEGER" property="needUpdate" />
+    <result column="b_time" jdbcType="TIMESTAMP" property="bTime" />
+    <result column="e_time" jdbcType="TIMESTAMP" property="eTime" />
+    <result column="deviationtime" jdbcType="INTEGER" property="deviationtime" />
+    <result column="versionlock" jdbcType="VARCHAR" property="versionlock" />
+    <result column="control_addr" jdbcType="VARCHAR" property="controlAddr" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, os_type, edition_no, version_no, version_key, official_site, login_addr, version_enable, 
+    need_update, b_time, e_time, deviationtime, versionlock, control_addr
+  </sql>
+  <select id="selectByExample" parameterType="com.yunzhiqu.api.modal.TVersionInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from t_versioninfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_versioninfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_versioninfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.yunzhiqu.api.modal.TVersionInfoExample">
+    delete from t_versioninfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.yunzhiqu.api.modal.TVersionInfo">
+    insert into t_versioninfo (id, os_type, edition_no, 
+      version_no, version_key, official_site, 
+      login_addr, version_enable, need_update, 
+      b_time, e_time, deviationtime, 
+      versionlock, control_addr)
+    values (#{id,jdbcType=INTEGER}, #{osType,jdbcType=INTEGER}, #{editionNo,jdbcType=INTEGER}, 
+      #{versionNo,jdbcType=VARCHAR}, #{versionKey,jdbcType=VARCHAR}, #{officialSite,jdbcType=VARCHAR}, 
+      #{loginAddr,jdbcType=VARCHAR}, #{versionEnable,jdbcType=INTEGER}, #{needUpdate,jdbcType=INTEGER}, 
+      #{bTime,jdbcType=TIMESTAMP}, #{eTime,jdbcType=TIMESTAMP}, #{deviationtime,jdbcType=INTEGER}, 
+      #{versionlock,jdbcType=VARCHAR}, #{controlAddr,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.yunzhiqu.api.modal.TVersionInfo">
+    insert into t_versioninfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="osType != null">
+        os_type,
+      </if>
+      <if test="editionNo != null">
+        edition_no,
+      </if>
+      <if test="versionNo != null">
+        version_no,
+      </if>
+      <if test="versionKey != null">
+        version_key,
+      </if>
+      <if test="officialSite != null">
+        official_site,
+      </if>
+      <if test="loginAddr != null">
+        login_addr,
+      </if>
+      <if test="versionEnable != null">
+        version_enable,
+      </if>
+      <if test="needUpdate != null">
+        need_update,
+      </if>
+      <if test="bTime != null">
+        b_time,
+      </if>
+      <if test="eTime != null">
+        e_time,
+      </if>
+      <if test="deviationtime != null">
+        deviationtime,
+      </if>
+      <if test="versionlock != null">
+        versionlock,
+      </if>
+      <if test="controlAddr != null">
+        control_addr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="osType != null">
+        #{osType,jdbcType=INTEGER},
+      </if>
+      <if test="editionNo != null">
+        #{editionNo,jdbcType=INTEGER},
+      </if>
+      <if test="versionNo != null">
+        #{versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="versionKey != null">
+        #{versionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="officialSite != null">
+        #{officialSite,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAddr != null">
+        #{loginAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="versionEnable != null">
+        #{versionEnable,jdbcType=INTEGER},
+      </if>
+      <if test="needUpdate != null">
+        #{needUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="bTime != null">
+        #{bTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eTime != null">
+        #{eTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviationtime != null">
+        #{deviationtime,jdbcType=INTEGER},
+      </if>
+      <if test="versionlock != null">
+        #{versionlock,jdbcType=VARCHAR},
+      </if>
+      <if test="controlAddr != null">
+        #{controlAddr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.yunzhiqu.api.modal.TVersionInfoExample" resultType="java.lang.Long">
+    select count(*) from t_versioninfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_versioninfo
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.osType != null">
+        os_type = #{record.osType,jdbcType=INTEGER},
+      </if>
+      <if test="record.editionNo != null">
+        edition_no = #{record.editionNo,jdbcType=INTEGER},
+      </if>
+      <if test="record.versionNo != null">
+        version_no = #{record.versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionKey != null">
+        version_key = #{record.versionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.officialSite != null">
+        official_site = #{record.officialSite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.loginAddr != null">
+        login_addr = #{record.loginAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.versionEnable != null">
+        version_enable = #{record.versionEnable,jdbcType=INTEGER},
+      </if>
+      <if test="record.needUpdate != null">
+        need_update = #{record.needUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="record.bTime != null">
+        b_time = #{record.bTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.eTime != null">
+        e_time = #{record.eTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.deviationtime != null">
+        deviationtime = #{record.deviationtime,jdbcType=INTEGER},
+      </if>
+      <if test="record.versionlock != null">
+        versionlock = #{record.versionlock,jdbcType=VARCHAR},
+      </if>
+      <if test="record.controlAddr != null">
+        control_addr = #{record.controlAddr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_versioninfo
+    set id = #{record.id,jdbcType=INTEGER},
+      os_type = #{record.osType,jdbcType=INTEGER},
+      edition_no = #{record.editionNo,jdbcType=INTEGER},
+      version_no = #{record.versionNo,jdbcType=VARCHAR},
+      version_key = #{record.versionKey,jdbcType=VARCHAR},
+      official_site = #{record.officialSite,jdbcType=VARCHAR},
+      login_addr = #{record.loginAddr,jdbcType=VARCHAR},
+      version_enable = #{record.versionEnable,jdbcType=INTEGER},
+      need_update = #{record.needUpdate,jdbcType=INTEGER},
+      b_time = #{record.bTime,jdbcType=TIMESTAMP},
+      e_time = #{record.eTime,jdbcType=TIMESTAMP},
+      deviationtime = #{record.deviationtime,jdbcType=INTEGER},
+      versionlock = #{record.versionlock,jdbcType=VARCHAR},
+      control_addr = #{record.controlAddr,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.yunzhiqu.api.modal.TVersionInfo">
+    update t_versioninfo
+    <set>
+      <if test="osType != null">
+        os_type = #{osType,jdbcType=INTEGER},
+      </if>
+      <if test="editionNo != null">
+        edition_no = #{editionNo,jdbcType=INTEGER},
+      </if>
+      <if test="versionNo != null">
+        version_no = #{versionNo,jdbcType=VARCHAR},
+      </if>
+      <if test="versionKey != null">
+        version_key = #{versionKey,jdbcType=VARCHAR},
+      </if>
+      <if test="officialSite != null">
+        official_site = #{officialSite,jdbcType=VARCHAR},
+      </if>
+      <if test="loginAddr != null">
+        login_addr = #{loginAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="versionEnable != null">
+        version_enable = #{versionEnable,jdbcType=INTEGER},
+      </if>
+      <if test="needUpdate != null">
+        need_update = #{needUpdate,jdbcType=INTEGER},
+      </if>
+      <if test="bTime != null">
+        b_time = #{bTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="eTime != null">
+        e_time = #{eTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deviationtime != null">
+        deviationtime = #{deviationtime,jdbcType=INTEGER},
+      </if>
+      <if test="versionlock != null">
+        versionlock = #{versionlock,jdbcType=VARCHAR},
+      </if>
+      <if test="controlAddr != null">
+        control_addr = #{controlAddr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.yunzhiqu.api.modal.TVersionInfo">
+    update t_versioninfo
+    set os_type = #{osType,jdbcType=INTEGER},
+      edition_no = #{editionNo,jdbcType=INTEGER},
+      version_no = #{versionNo,jdbcType=VARCHAR},
+      version_key = #{versionKey,jdbcType=VARCHAR},
+      official_site = #{officialSite,jdbcType=VARCHAR},
+      login_addr = #{loginAddr,jdbcType=VARCHAR},
+      version_enable = #{versionEnable,jdbcType=INTEGER},
+      need_update = #{needUpdate,jdbcType=INTEGER},
+      b_time = #{bTime,jdbcType=TIMESTAMP},
+      e_time = #{eTime,jdbcType=TIMESTAMP},
+      deviationtime = #{deviationtime,jdbcType=INTEGER},
+      versionlock = #{versionlock,jdbcType=VARCHAR},
+      control_addr = #{controlAddr,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
